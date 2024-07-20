@@ -9,7 +9,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('Todo App')
-    .setDescription("A rest api to list user todos with authorization implemented using JWT token. THe API is made using NestJs By Vijayendher Gatla")
+    .setDescription("A rest api to list user todos with authorization implemented using JWT token. THe API is made using NestJs")
     .setVersion('1.0')
     .addBearerAuth()
     .build();
