@@ -3,8 +3,6 @@ import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { DatabaseService } from 'src/database/database.service';
 import { Prisma } from '@prisma/client';
-import { userInfo } from 'os';
-
 @Injectable()
 export class TodoService {
 
@@ -19,12 +17,12 @@ export class TodoService {
       let data: Prisma.TodoCreateInput = {
         description : createTodoDto.description,
         task : createTodoDto.task,
-        status : "ACTIVE",
+        status : 'ACTIVE',
         user: {
           connect: {email: user.email},
         },
       }
-      console.log(data)
+      // console.log(data)
       return this.databaseService.todo.create({data});
     }
     catch(err) {
@@ -33,7 +31,7 @@ export class TodoService {
   }
 
   async findAll(userEmail: string) {
-    return this.databaseService.todo.findMany({
+    return await this.databaseService.todo.findMany({
       where: {
         userEmail: userEmail
       }
@@ -41,7 +39,7 @@ export class TodoService {
   }
 
   async findOne(id: number) {
-    return this.databaseService.todo.findFirst({
+    return await this.databaseService.todo.findFirst({
       where: {
         id: id
       }
@@ -49,7 +47,7 @@ export class TodoService {
   }
 
   async update(id: number, updateTodoDto: UpdateTodoDto) {
-    return this.databaseService.todo.update({
+    return await this.databaseService.todo.update({
       where: {
         id: id
       },
@@ -58,10 +56,15 @@ export class TodoService {
   }
 
   async remove(id: number) {
-    return this.databaseService.todo.delete({
-      where: {
-        id: id
-      }
-    });
+    try{
+      return await this.databaseService.todo.delete({
+        where: {
+          id: id
+        }
+      });
+    }
+    catch (error) {
+      return error;
+    }
   }
 }
