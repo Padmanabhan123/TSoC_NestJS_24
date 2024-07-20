@@ -42,7 +42,7 @@ export class AppService {
           Hello! from Todo rest API!
         </div>
         <div class="developer">
-          Developed By: Vijayendher Gatla
+          Developed By: Padmanabhan G C
         </div>
       </body>
       </html>
